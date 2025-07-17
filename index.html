@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIP FIX — Заявка</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg">
+    <h1 class="text-2xl font-bold mb-6 text-center">Оставьте заявку</h1>
+    <form id="contactForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Имя" class="w-full p-3 border rounded-xl" required>
+      <input type="tel" id="phone" placeholder="Телефон" class="w-full p-3 border rounded-xl" required>
+      <select id="service" class="w-full p-3 border rounded-xl">
+        <option>Ремонт стиральной машины</option>
+        <option>Ремонт кондиционера</option>
+        <option>Установка техники</option>
+        <option>Другое</option>
+      </select>
+      <textarea id="comment" placeholder="Комментарий" rows="4" class="w-full p-3 border rounded-xl"></textarea>
+      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-xl font-semibold hover:bg-blue-700">Отправить</button>
+    </form>
+    <p id="status" class="text-center mt-4 text-sm text-gray-600"></p>
+  </div>
+
+  <script>
+    const botToken = "8091331988:AAGSTP3-g6MJ3bUGuZwGKpus3XxoQZACfBM";
+    const chatId = "5690712148";
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const service = document.getElementById("service").value;
+      const comment = document.getElementById("comment").value;
+
+      const message = `🧾 Новая заявка с сайта:\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n🛠 Услуга: ${service}\n✍ Комментарий: ${comment || 'нет'}\n\n📩 Отправлено с сайта VIP FIX`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          document.getElementById("status").textContent = "✅ Заявка отправлена! Скоро мы вам перезвоним.";
+          document.getElementById("contactForm").reset();
+        } else {
+          document.getElementById("status").textContent = "❌ Ошибка при отправке. Попробуйте позже.";
+        }
+      })
+      .catch(error => {
+        document.getElementById("status").textContent = "❌ Сетевая ошибка. Попробуйте позже.";
+        console.error("Ошибка отправки:", error);
+      });
+    });
+  </script>
+</body>
+</html>
