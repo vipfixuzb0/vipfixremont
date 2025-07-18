@@ -12,12 +12,35 @@
     <form id="contactForm" class="space-y-4">
       <input type="text" id="name" placeholder="Имя" class="w-full p-3 border rounded-xl" required>
       <input type="tel" id="phone" placeholder="Телефон" class="w-full p-3 border rounded-xl" required>
+      
+<select id="service" class="w-full p-3 border rounded-xl">
+  <option value="">Что хотите отремонтировать? ТЫК</option>
+  <option value="Стиральная машина">Стиральная машина</option>
+  <option value="Кондиционер">Кондиционер</option>
+  <option value="Холодильник">Холодильник</option>
+  <option value="Посудомоечная машина">Посудомоечная машина</option>
+  <option value="Телевизор">Телевизор</option>
+  <option value="Пылесос">Пылесос</option>
+  <option value="Микроволновка">Микроволновка</option>
+  <option value="Плита">Плита (газовая/электрическая)</option>
+  <option value="Другое">Другое</option>
+</select>
+
+
+
+      <!--
+
       <select id="service" class="w-full p-3 border rounded-xl">
         <option>Ремонт стиральной машины</option>
+        <option>Ремонт кондиционера</option>
+        <option>Ремонт кондиционера</option>
+        <option>Ремонт кондиционера</option>
         <option>Ремонт кондиционера</option>
         <option>Установка техники</option>
         <option>Другое</option>
       </select>
+
+       -->
       <textarea id="comment" placeholder="Комментарий" rows="4" class="w-full p-3 border rounded-xl"></textarea>
       <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-xl font-semibold hover:bg-blue-700">Отправить</button>
     </form>
@@ -54,7 +77,7 @@
           document.getElementById("status").textContent = "✅ Заявка отправлена! Скоро мы вам перезвоним.";
           document.getElementById("contactForm").reset();
         } else {
-          document.getElementById("status").textContent = "❌ Ошибка при отправке. Попробуйте позже.";
+          document.getElementById("status").textContent = "❌ Ошибка при отправке. Попробуйте вести значения правильно.";
         }
       })
       .catch(error => {
